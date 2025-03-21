@@ -1,10 +1,14 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const VanDetail = ({ van }) => {
+  const params = useParams();
+  console.log(params);
+
   return (
-    <Link to={`/vans/${van.id}`}>
-      <div className="van-tile">
+    <div className="van-tile">
+      <Link to={`/vans/${van.id}`}>
         <img src={van.imageUrl} />
         <div className="van-info">
           <h3>{van.name}</h3>
@@ -14,8 +18,8 @@ const VanDetail = ({ van }) => {
           </p>
         </div>
         <i className={`van-type ${van.type} selected`}>{van.type}</i>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 
