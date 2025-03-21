@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import VanDetail from "./VanDetail";
+import {Link} from "react-router-dom";
 
 const Vans = () => {
   const [vans, setVans] = useState([]);
@@ -9,14 +9,26 @@ const Vans = () => {
       const response = await fetch("/api/vans");
       const data = await response.json();
       console.log(data.vans);
-      
+
       setVans(data.vans);
     };
     getVansList();
   }, []);
 
   const vanElements = vans.map((van) => (
-    <VanDetail key={van.id} van={van} />
+    <div key={van.id} className="van-tile">
+      <Link to={`/vans/${van.id}`}>
+        <img src={van.imageUrl} />
+        <div className="van-info">
+          <h3>{van.name}</h3>
+          <p>
+            ${van.price}
+            <span>/day</span>
+          </p>
+        </div>
+        <i className={`van-type ${van.type} selected`}>{van.type}</i>
+      </Link>
+    </div>
   ));
 
   return (
